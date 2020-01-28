@@ -34,11 +34,21 @@ void graphics::Window::run() {
 
     graphics::Shader *shader = graphics::loadShaderFromFiles("res/shaders/basic.vert", "res/shaders/basic.frag");
 
+    GLuint vaoID;
+    glGenVertexArrays(1, &vaoID);
+    glBindVertexArray(vaoID);
+
+    graphics::VertexBuffer *vb = new graphics::VertexBuffer();
+
     while(!glfwWindowShouldClose(window)) {
         glfwPollEvents();
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(0, 0, 0, 1);
+
+        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
 
         shader->use();
-
+        vb->draw();
         shader->unbind();
 
         glfwSwapBuffers(window);

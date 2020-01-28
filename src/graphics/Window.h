@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Shader.h"
+#include "VertexBuffer.h"
 
 namespace graphics {
 
