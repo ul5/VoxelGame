@@ -37,7 +37,7 @@ graphics::VertexBuffer::VertexBuffer() {
 
          8,  9, 10, 10, 11,  8,
         13, 12, 15, 15, 14, 13,
-         9, 13, 14, 15, 10,  9,
+         9, 13, 14, 14, 10,  9,
         12,  8, 11, 11, 15, 12,
          8, 12, 13, 13,  9,  8,
         11, 10, 14, 14, 15, 11,
@@ -46,12 +46,12 @@ graphics::VertexBuffer::VertexBuffer() {
     // bind();
 
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * NUM_POINTS * 3, points, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * NUM_POINTS * 3, points, GL_STREAM_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*) 0);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, iboID);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * NUM_INDICIES, indicies, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * NUM_INDICIES, indicies, GL_STREAM_DRAW);
 }
 
 void graphics::VertexBuffer::draw() {

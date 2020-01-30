@@ -1,10 +1,11 @@
 #pragma once
 
-#include <iostream>
 #define _USE_MATH_DEFINES
 #include <cmath>
+#include <iostream>
 
 #include "graphics/Window.h"
+#include "world/World.h"
 
 namespace game {
 
@@ -17,6 +18,8 @@ namespace game {
         graphics::Shader *shader = nullptr;
 
         graphics::ShaderUniform *u_time = nullptr, *u_camera = nullptr, *u_rotation = nullptr;
+
+        world::World *game_world = nullptr;
 
         float cur_time = 0.0f;
         glm::vec3 camera = glm::vec3(0, 0, 0);

@@ -13,6 +13,8 @@ game::Game::Game() {
     u_camera = shader->getUniform("camera");
     u_rotation = shader->getUniform("rotation");
 
+    game_world = new world::World();
+
     GLuint vaoID;
     glGenVertexArrays(1, &vaoID);
     glBindVertexArray(vaoID);
@@ -49,14 +51,9 @@ void game::Game::render(graphics::Window *window) {
     u_time->update1f(cur_time);
     u_camera->update3f(camera);
     u_rotation->update3f(rotation);
-    vb->draw();
+    
+    game_world->render();
 
-    for(int i = 0; i < 10; i++) {
-        camera.x += i;
-        u_camera->update3f(camera);
-        camera.x -= i;
-        vb->draw();
-    }
 
     shader->unbind();
 }

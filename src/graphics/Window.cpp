@@ -39,6 +39,10 @@ void graphics::Window::run() {
     glfwMakeContextCurrent(window);
 
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
+    auto clock = std::chrono::high_resolution_clock();
+    auto start = clock.now();
 
     while(!glfwWindowShouldClose(window)) {
         glfwPollEvents();
@@ -50,5 +54,13 @@ void graphics::Window::run() {
         glfwSetCursorPos(window, 0, 0);
 
         glfwSwapBuffers(window);
+        ++fps;
+
+        auto now = clock.now();
+        if(now - start >= std::chrono::seconds(1)) {
+            start = now;
+            std::cout << "[INFO] " << fps << " FPS" << std::endl;
+            fps = 0;
+        }
     }
 }

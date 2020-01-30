@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <vector>
+#include <chrono>
 
 #include "Shader.h"
 #include "VertexBuffer.h"
@@ -21,6 +22,7 @@ namespace graphics {
     private:
         GLFWwindow *window;
         std::vector<renderer> renderers;
+        uint32_t fps = 0;
 
     public:
         Window();

@@ -6,9 +6,13 @@ namespace world {
     
     class World {
     private:
-        Chunk *chunks;
+        std::vector<Chunk*> chunks;
+
     public:
         World();
+        ~World();
+
+        void render();
     };
 
 }
