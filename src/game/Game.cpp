@@ -26,8 +26,10 @@ void game::Game::render(graphics::Window *window) {
     if(window->isKeyPressed(GLFW_KEY_ESCAPE)) window->closeWindow();
 
     glm::dvec2 mouse_pos = window->getMousePos();
-    rotation.y -= mouse_pos.x / 1000.0;
-    printf("Angle = %f\n", angle);
+    rotation.y -= mouse_pos.x / 500.0;
+    rotation.x -= mouse_pos.y / 500.0;
+    if(rotation.x < -M_PI / 2.0) rotation.x = -M_PI / 2.0;
+    if(rotation.x > M_PI / 2.0) rotation.x = M_PI / 2.0;
 
     float ws = 0.0f, ad = 0.0f;
 
@@ -35,18 +37,27 @@ void game::Game::render(graphics::Window *window) {
     if(window->isKeyPressed(GLFW_KEY_S)) ws -= 0.1f;
     if(window->isKeyPressed(GLFW_KEY_D)) ad -= 0.1f;
     if(window->isKeyPressed(GLFW_KEY_A)) ad += 0.1f;
+    if(window->isKeyPressed(GLFW_KEY_LEFT_SHIFT)) camera.y += 0.1f;
+    if(window->isKeyPressed(GLFW_KEY_SPACE)) camera.y -= 0.1f;
 
-    camera.z += cos(angle) * ws - sin(angle) * ad;
-    camera.x += cos(angle) * ad + sin(angle) * ad;
+    camera.z += cos(rotation.y) * ws - sin(rotation.y) * ad;
+    camera.x += cos(rotation.y) * ad + sin(rotation.y) * ws;
 
-    cur_time += 0.001f;
+    //cur_time += 0.001f;
 
     shader->use();
     u_time->update1f(cur_time);
     u_camera->update3f(camera);
     u_rotation->update3f(rotation);
-
     vb->draw();
+
+    for(int i = 0; i < 10; i++) {
+        camera.x += i;
+        u_camera->update3f(camera);
+        camera.x -= i;
+        vb->draw();
+    }
+
     shader->unbind();
 }
 

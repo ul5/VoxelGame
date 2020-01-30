@@ -1,6 +1,9 @@
 #pragma once
 
 #include <iostream>
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include "graphics/Window.h"
 
 namespace game {
@@ -16,7 +19,6 @@ namespace game {
         graphics::ShaderUniform *u_time = nullptr, *u_camera = nullptr, *u_rotation = nullptr;
 
         float cur_time = 0.0f;
-        float angle = 0.0f;
         glm::vec3 camera = glm::vec3(0, 0, 0);
         glm::vec3 rotation = glm::vec3(0, 0, 0);
 

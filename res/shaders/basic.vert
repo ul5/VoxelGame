@@ -29,14 +29,13 @@ mat4 perspective(float fovy, float near, float far) {
     float f = 1.0 / tan(fovy / 2.0);
     return transpose(mat4(
         f / 16.0 * 9.0, 0, 0, 0,
-        0,          f, 0, 0,
-        0, 0, (far+near)/(near-far), 2*far*near/(near - far),
+        0, f, 0, 0,
+        0, 0, (far+near)/(near-far), 2.0*far*near/(near - far),
         0, 0, -1, 0
     ));
 }
 
 void main() {
-    gl_Position = perspective(PI / 4.0, 1, 10) * roty(rotation.y) * transform(camera) * rotx(-PI / 4.0) * transform(vec3(0, -1, 0.5)) * roty(time * 100.0) * transform(vec3(0, 0, -0.5)) * vec4(position, 1);
-    //gl_Position.w = 10;
+    gl_Position = perspective(PI / 4.0, 1, 100) * rotx(rotation.x) * roty(rotation.y) * transform(camera) * transform(vec3(0, -1, 0.5)) * roty(time * 100.0) * transform(vec3(0, 0, -0.5)) * vec4(position, 1);
     pos = position;
 }
