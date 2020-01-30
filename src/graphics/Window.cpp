@@ -1,7 +1,5 @@
 #include "Window.h"
 
-float cur_time = 0.0f;
-
 graphics::Window::Window() {
     if(glfwInit() != GLFW_TRUE) {
         const char *desc;
@@ -20,6 +18,7 @@ graphics::Window::Window() {
 
     window = glfwCreateWindow(960, 540, "Voxels", NULL, NULL);
     glfwMakeContextCurrent(window);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     //glfwSetWindowOpacity(window, 0.1f);
     
 
@@ -39,14 +38,6 @@ void graphics::Window::run() {
     glfwShowWindow(window);
     glfwMakeContextCurrent(window);
 
-    graphics::Shader *shader = graphics::loadShaderFromFiles("res/shaders/basic.vert", "res/shaders/basic.frag");
-
-    GLuint vaoID;
-    glGenVertexArrays(1, &vaoID);
-    glBindVertexArray(vaoID);
-
-    graphics::VertexBuffer *vb = new graphics::VertexBuffer();
-
     glEnable(GL_DEPTH_TEST);
 
     while(!glfwWindowShouldClose(window)) {
@@ -54,17 +45,10 @@ void graphics::Window::run() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0, 0, 0, 1);
 
-        if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
+        for(renderer r : renderers) r.func(r.user_ptr, this);
 
-        cur_time += 0.001f;
-        shader->use();
-        shader->uniform1f("time", cur_time);
-
-        vb->draw();
-        shader->unbind();
+        glfwSetCursorPos(window, 0, 0);
 
         glfwSwapBuffers(window);
     }
-
-    delete shader;
 }

@@ -4,6 +4,8 @@
 
 layout (location = 0) in vec3 position;
 uniform float time;
+uniform vec3 camera;
+uniform vec3 rotation;
 
 out vec3 pos;
 
@@ -19,8 +21,8 @@ mat4 rotz(float angle) {
     return transpose(mat4(cos(angle), sin(angle), 0, 0, -sin(angle), cos(angle), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1));
 }
 
-mat4 transform(float x, float y, float z) {
-    return transpose(mat4(1, 0, 0, x, 0, 1, 0, y, 0, 0, 1, z, 0, 0, 0, 1));
+mat4 transform(vec3 pos) {
+    return transpose(mat4(1, 0, 0, pos.x, 0, 1, 0, pos.y, 0, 0, 1, pos.z, 0, 0, 0, 1));
 }
 
 mat4 perspective(float fovy, float near, float far) {
@@ -34,7 +36,7 @@ mat4 perspective(float fovy, float near, float far) {
 }
 
 void main() {
-    gl_Position = perspective(PI / 4.0, 1, 10) * rotx(PI / 4.0) * transform(0, -1, 1) * roty(time*100) * transform(0, 0, -0.5) * vec4(position, 1);
-    gl_Position.w = time * 10;
+    gl_Position = perspective(PI / 4.0, 1, 10) * roty(rotation.y) * transform(camera) * rotx(-PI / 4.0) * transform(vec3(0, -1, 0.5)) * roty(time * 100.0) * transform(vec3(0, 0, -0.5)) * vec4(position, 1);
+    //gl_Position.w = 10;
     pos = position;
 }

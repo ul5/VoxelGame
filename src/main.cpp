@@ -2,9 +2,9 @@
 
 int main(void) {
 
-    game::Game game;
-
-    game.run();
+    game::Game *game = new game::Game();
+    game->run();
+    delete game;
 
     return 0;
 }
