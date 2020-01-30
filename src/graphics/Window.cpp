@@ -1,5 +1,7 @@
 #include "Window.h"
 
+float cur_time = 0.0f;
+
 graphics::Window::Window() {
     if(glfwInit() != GLFW_TRUE) {
         const char *desc;
@@ -12,9 +14,14 @@ graphics::Window::Window() {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    //glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
+    //glfwWindowHint(GLFW_FLOATING, GLFW_TRUE);
 
     window = glfwCreateWindow(960, 540, "Voxels", NULL, NULL);
     glfwMakeContextCurrent(window);
+    //glfwSetWindowOpacity(window, 0.1f);
+    
 
     glewExperimental = true;
     GLenum err;
@@ -40,6 +47,8 @@ void graphics::Window::run() {
 
     graphics::VertexBuffer *vb = new graphics::VertexBuffer();
 
+    glEnable(GL_DEPTH_TEST);
+
     while(!glfwWindowShouldClose(window)) {
         glfwPollEvents();
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -47,7 +56,10 @@ void graphics::Window::run() {
 
         if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) glfwSetWindowShouldClose(window, true);
 
+        cur_time += 0.001f;
         shader->use();
+        shader->uniform1f("time", cur_time);
+
         vb->draw();
         shader->unbind();
 

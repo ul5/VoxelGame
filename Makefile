@@ -1,6 +1,6 @@
 CXX = g++
-OBJS =graphics/Window.o graphics/Shader.o graphics/VertexBuffer.o util/ReadFile.o  main.o
-CXX_OPTS = -std=c++11
+OBJS =graphics/Window.o graphics/Shader.o graphics/VertexBuffer.o util/ReadFile.o game/Game.o world/Block.o  main.o
+CXX_OPTS = -std=c++11 -Wall -Wextra -Wunused
 INCLUDES = -Isrc -Ilib/glew-2.1.0/include/ -Ilib/glfw-3.3.2/include/
 LIBS = -Llib/glfw-3.3.2/src/ -Llib/glew-2.1.0/lib -lglfw -lGLEW -lGL
 
@@ -13,6 +13,8 @@ setup: clean
 	-mkdir build
 	-mkdir build/graphics
 	-mkdir build/util
+	-mkdir build/world
+	-mkdir build/game
 
 clean:
 	-rm -r build/

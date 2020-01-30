@@ -1,12 +1,10 @@
-#include <iostream>
-#include "graphics/Window.h"
+#include "game/Game.h"
 
-int main(int argc, char **argv) {
-    graphics::Window *window = new graphics::Window(); // Initialize all GL stuff
+int main(void) {
 
-    
-    window->run();
+    game::Game game;
 
-    delete window;
+    game.run();
+
     return 0;
 }

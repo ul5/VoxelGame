@@ -15,7 +15,7 @@ util::filedata util::readFile(const char *path) {
     data.file_data = (char*) malloc(data.file_size + 1);
     fseek(f, 0, SEEK_SET);
 
-    int b = fread(data.file_data, 1, data.file_size, f);
+    size_t b = fread(data.file_data, 1, data.file_size, f);
     data.file_data[data.file_size] = 0;
 
     if(b < data.file_size) {
