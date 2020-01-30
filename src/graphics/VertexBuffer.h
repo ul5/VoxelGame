@@ -3,13 +3,13 @@
 #include <GL/glew.h>
 #include <vector>
 #include <iostream>
-#include "../math/Vector.h"
+#include <glm/glm.hpp>
 
 namespace graphics {
 
     class VertexBuffer {
     private:
-        std::vector<math::vec3> points;
+        std::vector<glm::vec3> points;
         GLuint vboID, iboID;
 
     public:

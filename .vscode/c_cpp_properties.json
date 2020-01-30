@@ -1,23 +1,12 @@
 {
     "configurations": [
         {
-            "name": "Linux",
-            "includePath": [
-                "lib/glew-2.1.0/include",
-                "lib/glfw-3.3.2/include"
-            ],
-            "defines": [],
-            "compilerPath": "/usr/bin/clang",
-            "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
-        },
-        {
             "name": "Basic",
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/src",
                 "lib/glew-2.1.0/include",
-                "lib/glfw-3.3.2/include"
+                "lib/glfw-3.3.2/include",
+                "lib/glm"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",

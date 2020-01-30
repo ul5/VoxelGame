@@ -1,7 +1,7 @@
 CXX = g++
-OBJS =graphics/Window.o graphics/Shader.o graphics/VertexBuffer.o util/ReadFile.o game/Game.o world/Block.o  main.o
+OBJS = graphics/Window.o graphics/Shader.o graphics/VertexBuffer.o util/ReadFile.o game/Game.o world/Block.o world/Chunk.o world/World.o  main.o
 CXX_OPTS = -std=c++11 -Wall -Wextra -Wunused
-INCLUDES = -Isrc -Ilib/glew-2.1.0/include/ -Ilib/glfw-3.3.2/include/
+INCLUDES = -Isrc -Ilib/glew-2.1.0/include/ -Ilib/glfw-3.3.2/include/ -Ilib/glm/
 LIBS = -Llib/glfw-3.3.2/src/ -Llib/glew-2.1.0/lib -lglfw -lGLEW -lGL
 
 BUILD_OBJS = $(foreach obj, $(OBJS), build/$(obj))
