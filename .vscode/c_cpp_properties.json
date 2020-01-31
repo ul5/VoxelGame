@@ -6,7 +6,8 @@
                 "${workspaceFolder}/src",
                 "lib/glew-2.1.0/include",
                 "lib/glfw-3.3.2/include",
-                "lib/glm"
+                "lib/glm",
+                "lib/stb"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/clang",
