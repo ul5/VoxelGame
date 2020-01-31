@@ -12,14 +12,10 @@ game::Game::Game() {
     u_time = shader->getUniform("time");
     u_camera = shader->getUniform("camera");
     u_rotation = shader->getUniform("rotation");
+    u_sampler = shader->getUniform("tex");
+    u_sampler->update1i(0);
 
     game_world = new world::World();
-
-    GLuint vaoID;
-    glGenVertexArrays(1, &vaoID);
-    glBindVertexArray(vaoID);
-
-    vb = new graphics::VertexBuffer();
 
     window->addRenderFunc(game::game_render, this);
 }
@@ -54,17 +50,18 @@ void game::Game::render(graphics::Window *window) {
     
     game_world->render();
 
-
     shader->unbind();
 }
 
 game::Game::~Game() {
     delete u_time;
     delete u_camera;
+    delete u_rotation;
+    delete u_sampler;
 
     delete shader;
-    delete vb;
     delete window;
+    delete game_world;
 }
 
 void game::Game::run() {

@@ -3,11 +3,14 @@
 #define PI 3.1415926535897932384622
 
 layout (location = 0) in vec3 position;
+layout (location = 1) in vec2 texture_coords;
+
 uniform float time;
 uniform vec3 camera;
 uniform vec3 rotation;
 
 out vec3 pos;
+out vec2 tex_coords;
 
 mat4 rotx(float angle) {
     return transpose(mat4(1, 0, 0, 0, 0, cos(angle), sin(angle), 0, 0, -sin(angle), cos(angle), 0, 0, 0, 0, 1));
@@ -38,4 +41,6 @@ mat4 perspective(float fovy, float near, float far) {
 void main() {
     gl_Position = perspective(PI / 4.0, 1, 100) * rotx(rotation.x) * roty(rotation.y) * transform(camera) * transform(vec3(0, -1, 0.5)) * roty(time * 100.0) * transform(vec3(0, 0, -0.5)) * vec4(position, 1);
     pos = position;
+
+    tex_coords = texture_coords;
 }

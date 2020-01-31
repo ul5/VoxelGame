@@ -16,6 +16,7 @@ namespace graphics {
         ShaderUniform(GLuint loc) : location(loc) {}
 
         inline void update1f(float f) { glUniform1f(location, f); }
+        inline void update1i(int i) { glUniform1i(location, i); }
 
         inline void update3f(float v1, float v2, float v3) { glUniform3f(location, v1, v2, v3); }
         inline void update3f(glm::vec3 f) { glUniform3fv(location, 1, glm::value_ptr(f)); }

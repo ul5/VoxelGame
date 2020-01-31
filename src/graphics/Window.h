@@ -5,7 +5,6 @@
 #include <chrono>
 
 #include "Shader.h"
-#include "VertexBuffer.h"
 
 namespace graphics {
 

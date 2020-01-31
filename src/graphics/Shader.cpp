@@ -39,7 +39,11 @@ graphics::Shader::Shader(const char *vert_src, const char *frag_src) {
 
     glGetProgramiv(progID, GL_LINK_STATUS, &compile_status);
     if(compile_status != GL_TRUE) {
-        std::cout << "[ERROR] Could not Link program..." << std::endl;
+        glGetProgramiv(progID,  GL_INFO_LOG_LENGTH, &compile_status);
+        char *log = (char*) malloc(compile_status + 1);
+        glGetProgramInfoLog(progID, compile_status, NULL, log);
+        std::cout << "[ERROR] Could not Link program..." << std::endl << log << std::endl;
+        free(log);
     }
 
     glDeleteShader(vertShader);
