@@ -41,6 +41,38 @@ void game::Game::render(graphics::Window *window) {
     camera.z += cos(rotation.y) * ws - sin(rotation.y) * ad;
     camera.x += cos(rotation.y) * ad + sin(rotation.y) * ws;
 
+    glm::vec3 dir = glm::vec3(-cos(rotation.x) * sin(rotation.y), sin(rotation.x), -cos(rotation.x) * cos(rotation.y));
+    dir = normalize(dir) / 5.0f;
+    for(int i = 0; i < 100; i++) {
+        glm::vec3 new_pos = -1.0f * camera + dir * (float) i;
+
+        int x = (int) new_pos.x;
+        int y = (int) new_pos.y;
+        int z = (int) new_pos.z;
+
+        //std::cout << "Maybe Looking at block at " << x << " " << y << " " << z << std::endl;
+        if(game_world->isBlockAtPos(x, y, z)) {
+            if(window->isMousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
+                if(pressed) break;
+                game_world->breakBlock(x, y, z);
+                pressed = true;
+            } else if(window->isMousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
+                if(pressed) break;
+
+                new_pos = -1.0f * camera + dir * (float) (i - 1);
+
+                x = (int) new_pos.x;
+                y = (int) new_pos.y;
+                z = (int) new_pos.z;
+
+                game_world->placeBlock(x, y, z, 3);
+                pressed = true;
+            } else pressed = false;
+
+            break;
+        }
+    }
+
     //cur_time += 0.001f;
 
     shader->use();

@@ -1,6 +1,6 @@
 #include "Chunk.h"
 
-world::Chunk::Chunk() {
+world::Chunk::Chunk(int x, int z) : chunk_x(x), chunk_z(z) {
     for(int i = 0; i < 16 * 16 * 256; i++) {
         uint32_t x = i % 16;
         uint32_t y = (i / 16) % 256;
@@ -8,7 +8,7 @@ world::Chunk::Chunk() {
         blocks[i] = new Block(y < 61 ? 1 : y < 64 ? 2 : 0, x, y, z);
     }
 
-    blockMesh = new graphics::BlockMesh();
+    blockMesh = new graphics::BlockMesh(x * 16, z * 16);
     createMesh();
 }
 
@@ -21,6 +21,8 @@ world::Chunk::~Chunk() {
 }
 
 void world::Chunk::createMesh() {
+    blockMesh->clear();
+
     std::vector<glm::vec3> points;
     for(int i = 0; i < 16 * 16 * 256; i++) {
         if(!blocks[i] || !blocks[i]->blockid) continue;

@@ -31,6 +31,7 @@ namespace graphics {
         inline void addRenderFunc(render_func f, void * userdata) { renderers.push_back({ f, userdata }); }
 
         inline bool isKeyPressed(int key) { return glfwGetKey(window, key) == GLFW_PRESS; }
+        inline bool isMousePressed(int key) { return glfwGetMouseButton(window, key) == GLFW_PRESS; }
         inline void closeWindow() { glfwSetWindowShouldClose(window, true); }
         inline glm::dvec2 getMousePos() { glm::dvec2 pos; glfwGetCursorPos(window, &pos.x, &pos.y); return pos; }
 

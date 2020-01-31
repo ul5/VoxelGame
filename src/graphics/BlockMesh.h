@@ -29,11 +29,12 @@ namespace graphics {
         GLuint vboID, iboID;
         GLuint texture_id;
         int width, height, nrChannels;
+        float x, z;
 
         std::vector<vert_data> vertices;
         std::vector<unsigned int> indices;
     public:
-        BlockMesh();
+        BlockMesh(int xoff, int zoff);
         ~BlockMesh();
 
         void add_face(float x1, float y1, float z1, SIDE side, int tex_id);

@@ -23,6 +23,7 @@ namespace game {
         float cur_time = 0.0f;
         glm::vec3 camera = glm::vec3(0, -64, 0);
         glm::vec3 rotation = glm::vec3(0, 0, 0);
+        bool pressed = false;
 
         void render(graphics::Window *window);
         friend void game::game_render(void *game_ptr, graphics::Window *window);
