@@ -19,8 +19,8 @@ namespace world {
             return false;
         }
 
-         inline void breakBlock(int x, int y, int z) { for(Chunk *c : chunks) if(c->isNotAir(x, y, z)) c->breakBlock(x % 16, y % 256, z % 16); }
-         inline void placeBlock(int x, int y, int z, int id) { for(Chunk *c : chunks) if(!c->isNotAir(x, y, z)) c->placeBlock(x % 16, y % 256, z % 16, id); }
+         inline void breakBlock(int x, int y, int z) { for(Chunk *c : chunks) if(c->isNotAir(x, y, z)) c->breakBlock(x & 0xF, y & 0xFF, z & 0xF); }
+         inline void placeBlock(int x, int y, int z, int id) { for(Chunk *c : chunks) if(c->isInside(x, z) && !c->isNotAir(x, y, z)) c->placeBlock(x  & 0xF, y  & 0xFF, z  & 0xF, id); }
     };
 
 }

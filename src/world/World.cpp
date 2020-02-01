@@ -1,12 +1,11 @@
 #include "World.h"
 
 world::World::World() {
-    for(int i = 0; i < 1; i++) {
-        for(int j = 0; j < 1; j++) {
+    for(int i = -2; i < 3; i++) {
+        for(int j = -2; j < 3; j++) {
             chunks.push_back(new Chunk(i, j));
         }
     }
-    chunks.push_back(new Chunk(0, 1));
 }
 
 world::World::~World() {

@@ -16,6 +16,7 @@ world::Chunk::~Chunk() {
     for(int i = 0; i < 16 * 16 * 256; i++) {
         delete blocks[i];
     }
+    delete[] blocks;
 
     delete blockMesh;
 }
