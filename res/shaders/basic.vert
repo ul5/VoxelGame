@@ -4,13 +4,16 @@
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec2 texture_coords;
+layout (location = 2) in vec3 blockpos;
 
 uniform float time;
 uniform vec3 camera;
 uniform vec3 rotation;
+uniform vec3 looking_at;
 
 out vec3 pos;
 out vec2 tex_coords;
+out vec4 color_modifier;
 
 mat4 rotx(float angle) {
     return transpose(mat4(1, 0, 0, 0, 0, cos(angle), sin(angle), 0, 0, -sin(angle), cos(angle), 0, 0, 0, 0, 1));
@@ -43,4 +46,9 @@ void main() {
     pos = position;
 
     tex_coords = texture_coords;
+
+    if(blockpos == looking_at) {
+        //color_modifier = vec4(1, 0, 1, 1);
+        tex_coords.y += 1.0/64.0;
+    } else color_modifier = vec4(0, 0, 0, 0);
 }

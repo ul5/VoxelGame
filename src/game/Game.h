@@ -16,7 +16,7 @@ namespace game {
         graphics::Window *window = nullptr;
         graphics::Shader *shader = nullptr;
 
-        graphics::ShaderUniform *u_time = nullptr, *u_camera = nullptr, *u_rotation = nullptr, *u_sampler = nullptr;
+        graphics::ShaderUniform *u_time = nullptr, *u_camera = nullptr, *u_rotation = nullptr, *u_sampler = nullptr, *u_lookingat = nullptr;
 
         world::World *game_world = nullptr;
 

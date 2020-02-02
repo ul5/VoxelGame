@@ -32,9 +32,11 @@ graphics::BlockMesh::BlockMesh(int xoff, int zoff) : x((float) xoff), z((float) 
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vert_data), (void*) 0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vert_data), (void*) (sizeof(float) * 3));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vert_data), (void*) (sizeof(float) * 5));
 
     glBindVertexArray(0);
 }
@@ -52,35 +54,35 @@ void graphics::BlockMesh::add_face(float x1, float y1, float z1, SIDE side, int 
     unsigned int cur_id = (unsigned int) vertices.size();
 
     if(side == POSITIVE_X) {
-        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
     } else if(side == NEGATIVE_X) {
-        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
     } else if(side == POSITIVE_Y) {
-        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
     } else if(side == NEGATIVE_Y) {
-        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
     } else if(side == POSITIVE_Z) {
-        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 0.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
     } else if(side == NEGATIVE_Z) {
-        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
-        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 0.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 1.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 1.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 1.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
+        vertices.push_back({ x + x1 + 0.0f, y1 + 1.0f, z + z1 + 1.0f, (coord_x + 0.0f) / 64.0f, (coord_y + 0.0f) / 64.0f, x + x1, y1, z + z1 });
     }
 
     indices.push_back(cur_id + 0);
@@ -96,9 +98,11 @@ void graphics::BlockMesh::draw() {
 
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vert_data), (void*) 0);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vert_data), (void*) (sizeof(float) * 3));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(vert_data), (void*) (sizeof(float) * 5));
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vert_data) * vertices.size(), &vertices[0], GL_STREAM_DRAW);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * indices.size(), &indices[0], GL_STREAM_DRAW);

@@ -12,6 +12,8 @@ game::Game::Game() {
     u_time = shader->getUniform("time");
     u_camera = shader->getUniform("camera");
     u_rotation = shader->getUniform("rotation");
+    u_lookingat = shader->getUniform("looking_at");
+
     u_sampler = shader->getUniform("tex");
     u_sampler->update1i(0);
 
@@ -22,6 +24,7 @@ game::Game::Game() {
 
 void game::Game::render(graphics::Window *window) {
     if(window->isKeyPressed(GLFW_KEY_ESCAPE)) window->closeWindow();
+    shader->use();
 
     glm::dvec2 mouse_pos = window->getMousePos();
     rotation.y -= mouse_pos.x / 500.0;
@@ -44,14 +47,14 @@ void game::Game::render(graphics::Window *window) {
     glm::vec3 dir = glm::vec3(-cos(rotation.x) * sin(rotation.y), sin(rotation.x), -cos(rotation.x) * cos(rotation.y));
     dir = normalize(dir) / 5.0f;
     for(int i = 0; i < 100; i++) {
-        glm::vec3 new_pos = -1.0f * camera + dir * (float) i;
+        glm::vec3 new_pos = -1.0f * camera + glm::vec3(0, 1, 0) + dir * (float) i;
 
         int x = (int) new_pos.x;
         int y = (int) new_pos.y;
         int z = (int) new_pos.z;
 
-        //std::cout << "Maybe Looking at block at " << x << " " << y << " " << z << std::endl;
         if(game_world->isBlockAtPos(x, y, z)) {
+            u_lookingat->update3f(x, y, z);
             if(window->isMousePressed(GLFW_MOUSE_BUTTON_LEFT)) {
                 if(pressed) break;
                 game_world->breakBlock(x, y, z);
@@ -59,7 +62,7 @@ void game::Game::render(graphics::Window *window) {
             } else if(window->isMousePressed(GLFW_MOUSE_BUTTON_RIGHT)) {
                 if(pressed) break;
 
-                new_pos = -1.0f * camera + dir * (float) (i - 1);
+                new_pos = -1.0f * camera + glm::vec3(0, 1, 0) + dir * (float) (i - 1);
 
                 x = (int) new_pos.x;
                 y = (int) new_pos.y;
@@ -75,7 +78,6 @@ void game::Game::render(graphics::Window *window) {
 
     //cur_time += 0.001f;
 
-    shader->use();
     u_time->update1f(cur_time);
     u_camera->update3f(camera);
     u_rotation->update3f(rotation);
@@ -90,6 +92,7 @@ game::Game::~Game() {
     delete u_camera;
     delete u_rotation;
     delete u_sampler;
+    delete u_lookingat;
 
     delete shader;
     delete window;

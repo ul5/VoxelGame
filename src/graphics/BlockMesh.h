@@ -9,10 +9,13 @@
 
 namespace graphics {
 
+#pragma pack(push, 1)
     typedef struct vert_data {
         float x, y, z;
         float t_x, t_y;
+        float bx, by, bz;
     } vert_data;
+#pragma pack(pop)
 
     enum SIDE {
         POSITIVE_X = 0,

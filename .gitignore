@@ -3,3 +3,4 @@ lib/**
 voxelgame
 .gdb_history
 peda-session-*
+.DS_Store
